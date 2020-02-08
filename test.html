@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>JAVASCRIPT IS SHIT</h1>
+
+<p id="response"></p>
+<p id="compass"></p>
+
+<script>
+if(navigator.geolocation)
+    {
+        navigator.geolocation.watchPosition (
+
+            gpspos=> {
+                console.log(`Lat ${gpspos.coords.latitude} Lon ${gpspos.coords.longitude}`); // show in console for testing purposes
+				map.setView([gpspos.coords.latitude, gpspos.coords.longitude], 14);
+            },
+
+            err=> {
+				//document.getElementById("responseCode").innerHTML = `An error occurred: ${err.code}`;
+				document.getElementById("response").innerHTML = "sorry geolocation is not supported by your browser or you have denied the permission for us to access your location";
+            },
+
+            {enableHighAccuracy:true, maximumAge: 7000 }
+
+        );
+    }
+    else
+    {
+		document.getElementById("response").innerHTML = "sorry geolocation is not supported by your browser or you have denied the permission for us to access your location";
+    }
+var rlat = 0;
+var rlon = 0;
+var llat = 0;
+var llon = 0;
+var bearing = 2;
+
+//Bearing
+//var y = Math.sin(λ2-λ1) * Math.cos(φ2);
+//var x = Math.cos(φ1)*Math.sin(φ2) -
+//        Math.sin(φ1)*Math.cos(φ2)*Math.cos(λ2-λ1);
+//var brng = Math.atan2(y, x).toDegrees()
+
+//displays the direction
+while(i<100){
+
+switch(bearing) {
+  case 1:
+    document.getElementById("compass").innerHTML = N;
+    break;
+  case 2:
+    document.getElementById("compass").innerHTML = NNE;
+    break;
+  case 3:
+  document.getElementById("compass").innerHTML = NE;
+    break;
+  case 4:
+  document.getElementById("compass").innerHTML = ENE;
+    break;
+  case 5:
+  document.getElementById("compass").innerHTML = E;
+    break;
+  case 6:
+  document.getElementById("compass").innerHTML = ESE;
+    break;
+  case 7:
+  document.getElementById("compass").innerHTML = SE;
+    break;
+  case 8:
+  document.getElementById("compass").innerHTML = SSE;
+    break;
+  case 9:
+  document.getElementById("compass").innerHTML = S;
+    break;
+  case 10:
+  document.getElementById("compass").innerHTML = SSW;
+    break;
+  case 11:
+  document.getElementById("compass").innerHTML = SW;
+    break;
+  case 12:
+  document.getElementById("compass").innerHTML = WSW;
+    break;
+  case 13:
+  document.getElementById("compass").innerHTML = W;
+    break;
+  case 14:
+  document.getElementById("compass").innerHTML = WNW;
+    break;
+  case 15:
+  document.getElementById("compass").innerHTML = NW;
+    break;
+  case 16:
+  document.getElementById("compass").innerHTML = NNW;
+    break;
+  case 17
+  default:
+    // code block
+}
+}
+</script>
+
+</body>
+</html>
