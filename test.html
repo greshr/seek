@@ -1,105 +1,166 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+  <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script>
+</head>
+
 <body>
+  <h1>JAVASCRIPT IS SHIT</h1>
 
-<h1>JAVASCRIPT IS SHIT</h1>
-
-<p id="response"></p>
-<p id="compass"></p>
-
-<script>
-if(navigator.geolocation)
-    {
-        navigator.geolocation.watchPosition (
-
-            gpspos=> {
-                console.log(`Lat ${gpspos.coords.latitude} Lon ${gpspos.coords.longitude}`); // show in console for testing purposes
-				map.setView([gpspos.coords.latitude, gpspos.coords.longitude], 14);
-            },
-
-            err=> {
-				//document.getElementById("responseCode").innerHTML = `An error occurred: ${err.code}`;
-				document.getElementById("response").innerHTML = "sorry geolocation is not supported by your browser or you have denied the permission for us to access your location";
-            },
-
-            {enableHighAccuracy:true, maximumAge: 7000 }
-
-        );
-    }
-    else
-    {
-		document.getElementById("response").innerHTML = "sorry geolocation is not supported by your browser or you have denied the permission for us to access your location";
-    }
-var rlat = 0;
-var rlon = 0;
-var llat = 0;
-var llon = 0;
-var bearing = 2;
-
-//Bearing
-//var y = Math.sin(λ2-λ1) * Math.cos(φ2);
-//var x = Math.cos(φ1)*Math.sin(φ2) -
-//        Math.sin(φ1)*Math.cos(φ2)*Math.cos(λ2-λ1);
-//var brng = Math.atan2(y, x).toDegrees()
-
-//displays the direction
-while(i<100){
-
-switch(bearing) {
-  case 1:
-    document.getElementById("compass").innerHTML = N;
-    break;
-  case 2:
-    document.getElementById("compass").innerHTML = NNE;
-    break;
-  case 3:
-  document.getElementById("compass").innerHTML = NE;
-    break;
-  case 4:
-  document.getElementById("compass").innerHTML = ENE;
-    break;
-  case 5:
-  document.getElementById("compass").innerHTML = E;
-    break;
-  case 6:
-  document.getElementById("compass").innerHTML = ESE;
-    break;
-  case 7:
-  document.getElementById("compass").innerHTML = SE;
-    break;
-  case 8:
-  document.getElementById("compass").innerHTML = SSE;
-    break;
-  case 9:
-  document.getElementById("compass").innerHTML = S;
-    break;
-  case 10:
-  document.getElementById("compass").innerHTML = SSW;
-    break;
-  case 11:
-  document.getElementById("compass").innerHTML = SW;
-    break;
-  case 12:
-  document.getElementById("compass").innerHTML = WSW;
-    break;
-  case 13:
-  document.getElementById("compass").innerHTML = W;
-    break;
-  case 14:
-  document.getElementById("compass").innerHTML = WNW;
-    break;
-  case 15:
-  document.getElementById("compass").innerHTML = NW;
-    break;
-  case 16:
-  document.getElementById("compass").innerHTML = NNW;
-    break;
-  case 17
-  default:
-    // code block
-}
-}
-</script>
+  <p id="response"></p>
+  <p id="compass"></p>
+  <img src="direction.gif">
 
 </body>
+
 </html>
+  <script>
+    var rlat = -60.9256;
+    var rlon = -0.6022;
+    var llat = 0;
+    var llon = 0;
+    var txtdir = " ";
+
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(
+
+        gpspos => {
+          console.log(`Lat ${gpspos.coords.latitude} Lon ${gpspos.coords.longitude}`); // show in console for testing purposes
+          llat = gpspos.coords.latitude;
+          llon = gpspos.coords.longitude;
+        },
+
+        err => {
+          document.getElementById("response").innerHTML = "sorry geolocation is not supported by your browser or you have denied the permission for us to access your location";
+        },
+
+        {
+          enableHighAccuracy: true,
+          maximumAge: 7000
+        }
+
+      );
+    } else {
+      document.getElementById("response").innerHTML = "sorry geolocation is not supported by your browser or you have denied the permission for us to access your location";
+    }
+
+    var y = Math.sin(rlon - llon) * Math.cos(rlat);
+    var x = Math.cos(llat) * Math.sin(rlat) -
+      Math.sin(llat) * Math.cos(rlat) * Math.cos(rlon - llon);
+    var radians = Math.atan2(y, x);
+    console.log(radians);
+
+    function radians_to_degrees(radians) {
+      var pi = Math.PI;
+      return radians * (180 / pi);
+    }
+
+    var direction = radians_to_degrees(radians);
+    console.log(direction);
+    var direction = (direction + 180) % 360;
+    console.log("new number");
+    console.log(direction);
+    var roundDirection = Math.round(direction)
+    console.log(roundDirection);
+
+    //displays the direction to user
+    if (roundDirection > 349 && roundDirection < 12) {
+      document.getElementById("compass").innerHTML = "N";
+      txtdir = "N";
+    } else if (roundDirection > 11 && roundDirection < 34) {
+      document.getElementById("compass").innerHTML = "NNE";
+      txtdir = "NNE";
+    } else if (roundDirection > 35 && roundDirection < 56) {
+      document.getElementById("compass").innerHTML = "NE";
+      txtdir = "NE";
+    } else if (roundDirection > 57 && roundDirection < 78) {
+      document.getElementById("compass").innerHTML = "NEE";
+      txtdir = "NEE";
+    } else if (roundDirection > 79 && roundDirection < 102) {
+      document.getElementById("compass").innerHTML = "E";
+      txtdir = "E";
+    } else if (roundDirection > 103 && roundDirection < 124) {
+      document.getElementById("compass").innerHTML = "N";
+      txtdir = "N";
+    } else if (roundDirection > 103 && roundDirection < 124) {
+      document.getElementById("compass").innerHTML = "SEE";
+      txtdir = "SEE";
+    } else if (roundDirection > 125 && roundDirection < 146) {
+      document.getElementById("compass").innerHTML = "SE";
+      txtdir = "SE";
+    } else if (roundDirection > 147 && roundDirection < 168) {
+      document.getElementById("compass").innerHTML = "SSE";
+      txtdir = "SSE";
+    } else if (roundDirection > 169 && roundDirection < 192) {
+      document.getElementById("compass").innerHTML = "S";
+      txtdir = "S";
+    } else if (roundDirection > 193 && roundDirection < 214) {
+      document.getElementById("compass").innerHTML = "SSW";
+      txtdir = "SSW";
+    } else if (roundDirection > 215 && roundDirection < 236) {
+      document.getElementById("compass").innerHTML = "SW";
+      txtdir = "SW";
+    } else if (roundDirection > 237 && roundDirection < 258) {
+      document.getElementById("compass").innerHTML = "SWW";
+      txtdir = "SWW";
+    } else if (roundDirection > 259 && roundDirection < 282) {
+      document.getElementById("compass").innerHTML = "W";
+      txtdir = "W";
+    } else if (roundDirection > 283 && roundDirection < 304) {
+      document.getElementById("compass").innerHTML = "NWW";
+      txtdir = "NWW";
+    } else if (roundDirection > 305 && roundDirection < 326) {
+      document.getElementById("compass").innerHTML = "NW";
+      txtdir = "NW";
+    } else if (roundDirection > 327 && roundDirection < 248) {
+      document.getElementById("compass").innerHTML = "NNW";
+      txtdir = "NNW";
+    }
+
+    console.log(txtdir);
+
+    document.getElementById("btn").addEventListener("onClick", changeDirection());
+    var count = 1;
+    function changeDirection(){
+      switch(count) {
+        case 1:
+          document.getElementById("direction").innerHTML = "N";
+
+        break;
+        case 2:
+          document.getElementById("direction").innerHTML = "S";
+
+        break;
+        case 3:
+          document.getElementById("direction").innerHTML = "N";
+
+        break;
+        case 4:
+          document.getElementById("direction").innerHTML = "NW";
+
+        break;
+        case 5:
+          document.getElementById("direction").innerHTML = "NE";
+
+        break;
+        case 6:
+          document.getElementById("direction").innerHTML = txtdir;
+        break;
+      }
+      count = count+1;
+      console.log(count);
+    }
+
+    checkRefresh();
+
+    function checkRefresh() {
+    if (document.refreshForm.visited.value == "") {
+        document.refreshForm.visited.value = "1";
+        document.getElementById("direction").innerHTML = "N";
+    } else if (document.refreshForm.visited.value == "1"){
+        document.refreshForm.visited.value = "2";
+        document.getElementById("direction").innerHTML = "S";
+    }
+}
+  </script>
