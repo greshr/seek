@@ -44,3 +44,7 @@ We also ran into a issue with finding the current bearing of the Seekers device 
 ![Hider](screenshots/hider.PNG)
 #### Seeker App
 ![Seeker](screenshots/seeker.PNG)
+
+## How to run
+1. Clone the repository https://github.com/greshr/seek
+2. Run the index.html file in your favourite browser
