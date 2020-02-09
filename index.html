@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script>
 </head>
 
 <body>
   <h1>SEEK X</h1>
-
   <p id="response"></p>
+  <p>Required Heading</p>
   <p id="compass"></p>
-  <img id="direction" src="direction.gif">
+  <p>Your Heading</p>
+  <img id="image" src="directions.gif">
 
 </body>
 
@@ -117,50 +120,4 @@
       document.getElementById("compass").innerHTML = "NNW";
       txtdir = "NNW";
     }
-
-    console.log(txtdir);
-
-    document.getElementById("btn").addEventListener("onClick", changeDirection());
-    var count = 1;
-    function changeDirection(){
-      switch(count) {
-        case 1:
-          document.getElementById("direction").innerHTML = "N";
-
-        break;
-        case 2:
-          document.getElementById("direction").innerHTML = "S";
-
-        break;
-        case 3:
-          document.getElementById("direction").innerHTML = "N";
-
-        break;
-        case 4:
-          document.getElementById("direction").innerHTML = "NW";
-
-        break;
-        case 5:
-          document.getElementById("direction").innerHTML = "NE";
-
-        break;
-        case 6:
-          document.getElementById("direction").innerHTML = txtdir;
-        break;
-      }
-      count = count+1;
-      console.log(count);
-    }
-
-    checkRefresh();
-
-    function checkRefresh() {
-    if (document.refreshForm.visited.value == "") {
-        document.refreshForm.visited.value = "1";
-        document.getElementById("direction").innerHTML = "N";
-    } else if (document.refreshForm.visited.value == "1"){
-        document.refreshForm.visited.value = "2";
-        document.getElementById("direction").innerHTML = "S";
-    }
-}
-  </script>
+</script>
