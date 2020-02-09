@@ -42,5 +42,5 @@ We also ran into a issue with finding the current bearing of the Seekers device 
 ## Images
 ![Hider](screenshots/hider)
 Hider Device
-![Seeker](screenshots/seeker)
+![Seeker](screenshots/seeker.PNG)
 Seeker App
