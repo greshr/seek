@@ -40,7 +40,7 @@ We also ran into a issue with finding the current bearing of the Seekers device 
 * Using batteries to power the device.
 
 ## Images
-![Hider](screenshots/hider)
+![Hider](screenshots/hider.jpg)
 Hider Device
 ![Seeker](screenshots/seeker.PNG)
 Seeker App
