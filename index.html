@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script>
+</head>
+
+<body>
+  <h1>SEEK X</h1>
+  <p id="response"></p>
+  <p>Required Heading</p>
+  <p id="compass"></p>
+  <p>Your Heading</p>
+  <img id="image" src="directions.gif">
+
+</body>
+
+</html>
+  <script>
+    var rlat = -60.9256;
+    var rlon = -0.6022;
+    var llat = 0;
+    var llon = 0;
+    var txtdir = " ";
+
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(
+
+        gpspos => {
+          console.log(`Lat ${gpspos.coords.latitude} Lon ${gpspos.coords.longitude}`); // show in console for testing purposes
+          llat = gpspos.coords.latitude;
+          llon = gpspos.coords.longitude;
+        },
+
+        err => {
+          document.getElementById("response").innerHTML = "sorry geolocation is not supported by your browser or you have denied the permission for us to access your location";
+        },
+
+        {
+          enableHighAccuracy: true,
+          maximumAge: 7000
+        }
+
+      );
+    } else {
+      document.getElementById("response").innerHTML = "sorry geolocation is not supported by your browser or you have denied the permission for us to access your location";
+    }
+
+    var y = Math.sin(rlon - llon) * Math.cos(rlat);
+    var x = Math.cos(llat) * Math.sin(rlat) -
+      Math.sin(llat) * Math.cos(rlat) * Math.cos(rlon - llon);
+    var radians = Math.atan2(y, x);
+    console.log(radians);
+
+    function radians_to_degrees(radians) {
+      var pi = Math.PI;
+      return radians * (180 / pi);
+    }
+
+    var direction = radians_to_degrees(radians);
+    console.log(direction);
+    var direction = (direction + 180) % 360;
+    console.log("new number");
+    console.log(direction);
+    var roundDirection = Math.round(direction)
+    console.log(roundDirection);
+
+    //displays the direction to user
+    if (roundDirection > 349 && roundDirection < 12) {
+      document.getElementById("compass").innerHTML = "N";
+      txtdir = "N";
+    } else if (roundDirection > 11 && roundDirection < 34) {
+      document.getElementById("compass").innerHTML = "NNE";
+      txtdir = "NNE";
+    } else if (roundDirection > 35 && roundDirection < 56) {
+      document.getElementById("compass").innerHTML = "NE";
+      txtdir = "NE";
+    } else if (roundDirection > 57 && roundDirection < 78) {
+      document.getElementById("compass").innerHTML = "NEE";
+      txtdir = "NEE";
+    } else if (roundDirection > 79 && roundDirection < 102) {
+      document.getElementById("compass").innerHTML = "E";
+      txtdir = "E";
+    } else if (roundDirection > 103 && roundDirection < 124) {
+      document.getElementById("compass").innerHTML = "N";
+      txtdir = "N";
+    } else if (roundDirection > 103 && roundDirection < 124) {
+      document.getElementById("compass").innerHTML = "SEE";
+      txtdir = "SEE";
+    } else if (roundDirection > 125 && roundDirection < 146) {
+      document.getElementById("compass").innerHTML = "SE";
+      txtdir = "SE";
+    } else if (roundDirection > 147 && roundDirection < 168) {
+      document.getElementById("compass").innerHTML = "SSE";
+      txtdir = "SSE";
+    } else if (roundDirection > 169 && roundDirection < 192) {
+      document.getElementById("compass").innerHTML = "S";
+      txtdir = "S";
+    } else if (roundDirection > 193 && roundDirection < 214) {
+      document.getElementById("compass").innerHTML = "SSW";
+      txtdir = "SSW";
+    } else if (roundDirection > 215 && roundDirection < 236) {
+      document.getElementById("compass").innerHTML = "SW";
+      txtdir = "SW";
+    } else if (roundDirection > 237 && roundDirection < 258) {
+      document.getElementById("compass").innerHTML = "SWW";
+      txtdir = "SWW";
+    } else if (roundDirection > 259 && roundDirection < 282) {
+      document.getElementById("compass").innerHTML = "W";
+      txtdir = "W";
+    } else if (roundDirection > 283 && roundDirection < 304) {
+      document.getElementById("compass").innerHTML = "NWW";
+      txtdir = "NWW";
+    } else if (roundDirection > 305 && roundDirection < 326) {
+      document.getElementById("compass").innerHTML = "NW";
+      txtdir = "NW";
+    } else if (roundDirection > 327 && roundDirection < 248) {
+      document.getElementById("compass").innerHTML = "NNW";
+      txtdir = "NNW";
+    }
+</script>
